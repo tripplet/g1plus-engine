@@ -1,13 +1,18 @@
-application: g1plus_engine
+application: g1plus-engine
 version: 1
 runtime: python27
 api_version: 1
-threadsafe: yes
+threadsafe: no
 
 handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+- url: /(.*\.(html|ico|png|jpg|gif))
+  static_files: static/\1
+  upload: static/(.*\.(html|ico|png|jpg|gif))
+
+# secure cronjobs (no access for normal user)
+#- url: /tasks/crawl
+#  script: rss.py
+#  login: admin
 
 - url: .*
   script: main.app

@@ -1,0 +1,5 @@
+cron:
+- description: daily crawl job
+  url: /tasks/crawl
+  schedule: every day 22:30
+  timezone: Europe/Berlin

@@ -1,24 +1,32 @@
 #!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+
+
 import webapp2
+
+import hashlib
+
+import DataModel
+
+import feedparser
+
+feed_encoding = 'ISO-8859-1'
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write('Hello world!')
+        DataModel.BlogPost(url='http://google.de',name='test').put()
 
-app = webapp2.WSGIApplication([('/', MainHandler)],
-                              debug=True)
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        d = feedparser.parse("http://feeds.feedburner.com/gameone")
+        for x in d.entries:
+          try:
+            self.response.out.write(x.title.encode(feed_encoding))
+            self.response.out.write(x.link.encode(feed_encoding))
+          except:
+            self.response.out.write('Error at: ' + repr(x.title))
+
+        self.response.out.write('success!')
+
+app = webapp2.WSGIApplication([('/', MainHandler),
+                               ('/test', TestHandler)], debug=True)

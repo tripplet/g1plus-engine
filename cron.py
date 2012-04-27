@@ -47,14 +47,12 @@ class CronjobHandler(webapp2.RequestHandler):
             new_entry = existing_entry
 
           # save page content based on cronjob type for later comparison
-          if type == 'restricted' and existing_entry is None:
+          if type == 'restricted' and new_entry.restricted is None:
             new_entry.restricted = urllib.urlopen(url).read()
-            new_entry.put()
-
-          elif type == 'unrestricted':
+          elif type == 'unrestricted' and new_entry.unrestricted is None:
             new_entry.unrestricted = urllib.urlopen(url).read()
-            new_entry.put()
 
+          new_entry.put()
         except:
           pass
 

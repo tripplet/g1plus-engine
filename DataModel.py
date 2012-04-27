@@ -19,6 +19,6 @@ class BlogPost(db.Model):
 class FeedEntry(db.Model):
   name         = db.StringProperty(required=True,indexed=True)
   url          = db.LinkProperty(required=True,indexed=True)
-  fetched      = db.DateTimeProperty(auto_now_add=True, required=True)
+  created      = db.DateTimeProperty(auto_now_add=True, required=True)
   restricted   = db.BlobProperty()
   unrestricted = db.BlobProperty()

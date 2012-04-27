@@ -1,5 +1,15 @@
 cron:
-- description: daily crawl job
-  url: /tasks/crawl
+- description: crawl pages and rss feed for new content
+  url: /cron/crawl/unrestricted
   schedule: every day 22:30
+  timezone: Europe/Berlin
+
+- description: crawl restricted-version of content
+  url: /cron/crawl/restricted
+  schedule: every day 06:30
+  timezone: Europe/Berlin
+
+- description: cleanup database
+  url: /cron/cleanup
+  schedule: every monday 03:00
   timezone: Europe/Berlin

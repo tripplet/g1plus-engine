@@ -2,20 +2,24 @@ application: g1plus-engine
 version: 1
 runtime: python27
 api_version: 1
-threadsafe: no
+threadsafe: yes
 
 handlers:
 - url: /(.*\.(html|ico|png|jpg|gif))
   static_files: static/\1
   upload: static/(.*\.(html|ico|png|jpg|gif))
 
-# secure cronjobs (no access for normal user)
-#- url: /tasks/crawl
-#  script: rss.py
-#  login: admin
+- url: /robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
+
+- url: /cron/.*
+  script: cron.app
+  login: admin # secure cronjobs (no access for normal user)
 
 - url: .*
   script: main.app
+
 
 libraries:
 - name: webapp2

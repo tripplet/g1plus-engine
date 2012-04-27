@@ -1,5 +1,5 @@
 cron:
-- description: crawl pages and rss feed for new content
+- description: crawl unrestricted-version of content
   url: /cron/crawl/unrestricted
   schedule: every day 22:30
   timezone: Europe/Berlin

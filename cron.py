@@ -37,18 +37,24 @@ class CronjobHandler(webapp2.RequestHandler):
           # get name and url
           name = entry.title.encode(feed_encoding)
           url = entry.link.encode(feed_encoding)
+          # check if feed entry already exists -  based on rss entry name, which should!! be unique
 
-          # skip if feed entry already existent -  based on etnry name, which should!! be unique
-          if not DataModel.FeedEntry.all().filter('name =', name).get() or type == 'unrestricted':
+          existing_entry = DataModel.FeedEntry.all().filter('name =', name).get()
+
+          if existing_entry is None:
             new_entry = DataModel.FeedEntry(name=name, url=url)
+          else:
+            new_entry = existing_entry
 
-            # save page content based on cronjob type for later comparison
-            if type == 'restricted':
-              new_entry.restricted = urllib.urlopen(r).read()
-            elif type == 'unrestricted':
-              new_entry.unrestricted = urllib.urlopen(url).read()
-
+          # save page content based on cronjob type for later comparison
+          if type == 'restricted' and existing_entry is None:
+            new_entry.restricted = urllib.urlopen(url).read()
             new_entry.put()
+
+          elif type == 'unrestricted':
+            new_entry.unrestricted = urllib.urlopen(url).read()
+            new_entry.put()
+
         except:
           pass
 

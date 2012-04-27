@@ -2,7 +2,6 @@
 
 import datetime
 from google.appengine.ext import db
-from google.appengine.api import users
 
 
 #class VideoEntry():
@@ -11,12 +10,15 @@ from google.appengine.api import users
 
 
 class BlogPost(db.Model):
-  url      = db.LinkProperty(required=True)
-  part     = db.IntegerProperty()
-  name     = db.StringProperty(required=True)
-  created  = db.DateTimeProperty(auto_now_add=True, required=True)
+  url          = db.LinkProperty(required=True)
+  part         = db.IntegerProperty()
+  name         = db.StringProperty()
+  created      = db.DateTimeProperty(auto_now_add=True, required=True)
 
+# class for 
 class FeedEntry(db.Model):
-  name    = db.StringProperty(required=True)
-  url     = db.LinkProperty(required=True)
-  fetched = db.DateTimeProperty(auto_now_add=True, required=True)
+  name         = db.StringProperty(required=True,indexed=True)
+  url          = db.LinkProperty(required=True,indexed=True)
+  fetched      = db.DateTimeProperty(auto_now_add=True, required=True)
+  restricted   = db.BlobProperty()
+  unrestricted = db.BlobProperty()

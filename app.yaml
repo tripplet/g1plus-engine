@@ -21,7 +21,6 @@ handlers:
   script: main.app
   login: admin # secure
 
-
 libraries:
 - name: webapp2
   version: "2.5.1"

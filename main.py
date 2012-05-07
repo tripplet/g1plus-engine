@@ -12,7 +12,7 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
 
       template_values = {
-        'entries': DataModel.FeedEntry.all()
+        'entries': DataModel.FeedEntry.all().order('created')
       }
 
       template = jinja_environment.get_template('main_template.html')

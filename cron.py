@@ -35,8 +35,8 @@ class CronjobHandler(webapp2.RequestHandler):
       for entry in d.entries:
         try:
           # get name and url
-          name = entry.title.encode(feed_encoding)
-          url = entry.link.encode(feed_encoding)
+          name = entry.title
+          url = entry.link
           # check if feed entry already exists -  based on rss entry name, which should!! be unique
 
           existing_entry = DataModel.FeedEntry.all().filter('name =', name).get()
@@ -52,6 +52,7 @@ class CronjobHandler(webapp2.RequestHandler):
           elif type == 'unrestricted' and new_entry.unrestricted is None:
             new_entry.unrestricted = urllib.urlopen(url).read()
 
+          # save entry
           new_entry.put()
         except:
           pass

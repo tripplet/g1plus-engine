@@ -15,7 +15,7 @@ class BlogPost(db.Model):
   name         = db.StringProperty()
   created      = db.DateTimeProperty(auto_now_add=True, required=True)
 
-# class for 
+# class for
 class FeedEntry(db.Model):
   name         = db.StringProperty(required=True,indexed=True)
   url          = db.LinkProperty(required=True,indexed=True)

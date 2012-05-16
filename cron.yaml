@@ -4,9 +4,19 @@ cron:
   schedule: every day 22:30
   timezone: Europe/Berlin
 
-- description: crawl restricted-version of content
+- description: crawl restricted-version of content (morning)
   url: /cron/crawl/restricted
-  schedule: every day 06:30
+  schedule: every day 07:30
+  timezone: Europe/Berlin
+
+- description: crawl restricted-version of content (afternoon)
+  url: /cron/crawl/restricted
+  schedule: every day 16:00
+  timezone: Europe/Berlin
+
+- description: crawl restricted-version of content (evening)
+  url: /cron/crawl/restricted
+  schedule: every day 21:00
   timezone: Europe/Berlin
 
 - description: cleanup database
